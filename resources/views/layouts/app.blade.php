@@ -52,30 +52,36 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item {{Request()->is('suku') ? 'active' : ''}}">
                                 <a class="nav-link" href="/suku">Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{Request::segment(1) == 'about' ? 'active' : ''}}">
                                 <a class="nav-link" href="/about">Tentang</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item  {{Request()->is('suku/create') ? 'active' : ''}}">
+                                <a class="nav-link" href="/suku/create">+Data[Login]</a>
+                            </li>
+                            <li class="nav-item {{Request()->is('suku/create/tanpa/login') ? 'active' : ''}}">
+                                <a class="nav-link" href="/suku/create/tanpa/login">+Data[TanpaLOG]</a>
+                            </li>
+                            <li class="nav-item" {{Request()->is('login') ? 'active' : ''}}>
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Masuk') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item {{Request()->is('register') ? 'active' : ''}}">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a>
                                 </li>
                             @endif
                         @else
                                 
-                            <li class="nav-item">
+                            <li class="nav-item {{Request()->is('suku') ? 'active' : ''}}">
                                 <a class="nav-link" href="/suku">Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{Request::segment(1) == 'about' ? 'active' : ''}}">
                                 <a class="nav-link" href="/about">Tentang</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/suku/create">Add Data</a>
+                            <li class="nav-item  {{Request()->is('suku/create') ? 'active' : ''}}">
+                                <a class="nav-link" href="/suku/create">+Data[Login]</a>
                             </li>
 
                             <li class="nav-item dropdown">

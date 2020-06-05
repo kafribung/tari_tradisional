@@ -9,12 +9,14 @@ use App\Http\Requests\DanceRequest;
 // Import DB Dance
 use App\Models\Dance;
 
+use Auth;
+
 class DanceController extends Controller
 {
     //READ
     public function index()
     {
-        $dances = Dance::orderBy('id', 'desc')->paginate(6);
+        $dances = Dance::with('user')->orderBy('id', 'desc')->paginate(6);
         return view('pages.dance', compact('dances'));
     }
 
@@ -37,7 +39,12 @@ class DanceController extends Controller
             $data['img'] = $name_img;
         }
        
-        $request->user()->dances()->create($data);
+        // $request->user()->dances()->create($data);
+        if (Auth::check()) 
+            $data['user_id'] = Auth::user()->id;
+         else  $data['user_id'] = 1;
+
+        Dance::create($data);
 
         return redirect('/suku')->with('msg', 'Data berhasil ditambahkan ');
     }
@@ -78,7 +85,6 @@ class DanceController extends Controller
         Dance::findOrFail($id)->update($data);
 
         return redirect('/suku')->with('msg', 'Data berhasil diperbarui ');
-
     }
 
     // Delete

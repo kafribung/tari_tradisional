@@ -24,7 +24,9 @@ Route::group(['middleware' => 'admin'], function () {
 Route::resource('/suku', 'DanceController')->only(['index', 'show']);
 Route::get('/about', 'DanceController@about');
 
+// Tanpa Login
+Route::get('/suku/create/tanpa/login', 'DanceController@create');
+Route::post('/suku', 'DanceController@store');
+
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

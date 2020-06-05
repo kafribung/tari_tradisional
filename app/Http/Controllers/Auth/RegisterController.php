@@ -48,10 +48,11 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        if (User::count() >= 1) {
-            return redirect('register')->with('msg', 'Admin Sudah Full, Coba Besok !');
-        }
         $this->validator($request->all())->validate();
+
+        if (User::count() >= 6) {
+            return redirect('register')->with('msg', 'Admin Batas 6 Orang !');
+        }
 
         event(new Registered($user = $this->create($request->all())));
 
@@ -75,9 +76,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string','min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:5' ,'max:10', 'confirmed'],
         ]);
     }
 
@@ -94,6 +95,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role'  => 1,
         ]);
     }
 }

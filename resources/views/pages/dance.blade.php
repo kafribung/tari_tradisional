@@ -28,7 +28,9 @@
                         <button type="submit" onclick="return confirm('Hapus Data {{$dance->title}}?  ')" class="btn btn-outline-danger btn-sm">Delete</button>
                     </form>
                     @endif
-
+                </div>
+                <div class="card-footer">
+                    <h6>Ditulis Oleh {{$dance->user->name}} : {{$dance->created_at->format('d M Y')}}</h6>
                 </div>
             </div>
         </div>
